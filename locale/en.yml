@@ -1,0 +1,5 @@
+nodeloc-nl-patchs:
+  admin:
+    permissions:
+      followIgnoreBlocks: "Follow users: Ignore block status"
+  forum:

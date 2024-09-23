@@ -1,0 +1,5 @@
+nodeloc-nl-patchs:
+  admin:
+    permissions:
+      followIgnoreBlocks: "关注用户：忽略被屏蔽状态"
+  forum:
