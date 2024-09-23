@@ -6,6 +6,7 @@ import confirmModal from './components/confirmModal';
 
 export function hookLikeButton() {
     extend(CommentPost.prototype, 'actionItems', function (items) {
+        if(!items.has('like')) return;
         const likesComponent = items.get('like');
         items.remove('like');
 
