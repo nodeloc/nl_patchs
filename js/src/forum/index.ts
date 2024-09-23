@@ -1,5 +1,6 @@
 import app from 'flarum/forum/app';
-
+import { hookLikeButton } from './hookLikeButton';
 app.initializers.add('nodeloc/nl-patchs', () => {
-  console.log('[nodeloc/nl-patchs] Hello, forum!');
+  hookLikeButton();
+  
 });

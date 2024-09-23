@@ -3,3 +3,13 @@ nodeloc-nl-patchs:
     permissions:
       followIgnoreBlocks: "Follow users: Ignore block status"
   forum:
+    modal:
+      confirm: "Confirm"
+      cancel: "Cancel"
+    like:
+      on_title: "Like"
+      on_desc: "You will cost 1 NL to like this post, continue?"
+      off_title: "Unlike"
+      off_desc: "You are going to unlike this post, the NL will NOT be refunded"
+  api:
+    no_enough_money: "You have no enough NL"

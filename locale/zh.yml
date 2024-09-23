@@ -3,3 +3,13 @@ nodeloc-nl-patchs:
     permissions:
       followIgnoreBlocks: "关注用户：忽略被屏蔽状态"
   forum:
+    modal:
+      confirm: "确定"
+      cancel: "取消"
+    like:
+      on_title: "点赞"
+      on_desc: "你将消耗 1能量 来点赞，确定吗？"
+      off_title: "取消点赞"
+      off_desc: "你将取消点赞，消耗的能量【不会】退还，确定吗？"
+  api:
+    no_enough_money: "能量不足"
