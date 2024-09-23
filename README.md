@@ -4,24 +4,13 @@
 
 A [Flarum](http://flarum.org) extension. Nodeloc Patchs
 
-## Installation
 
-Install with composer:
+## Log
 
-```sh
-composer require nodeloc/nl-patchs:"*"
-```
++ 添加了关注用户无视权限
 
-## Updating
 
-```sh
-composer update nodeloc/nl-patchs:"*"
-php flarum migrate
-php flarum cache:clear
-```
 
 ## Links
 
-- [Packagist](https://packagist.org/packages/nodeloc/nl-patchs)
 - [GitHub](https://github.com/nodeloc/nl-patchs)
-- [Discuss](https://discuss.flarum.org/d/PUT_DISCUSS_SLUG_HERE)
