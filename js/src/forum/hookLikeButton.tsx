@@ -10,15 +10,15 @@ export function hookLikeButton() {
         const likesComponent = items.get('like');
         items.remove('like');
 
-        const text = likesComponent && likesComponent.children && likesComponent.children[0];
-        let unlikeTest = app.translator.trans('flarum-likes.forum.post.unlike_link');
-        if(Array.isArray(unlikeTest)) unlikeTest = unlikeTest[0];
+        // const text = likesComponent && likesComponent.children && likesComponent.children[0];
+        // let unlikeTest = app.translator.trans('flarum-likes.forum.post.unlike_link');
+        // if(Array.isArray(unlikeTest)) unlikeTest = unlikeTest[0];
 
-        if (text === unlikeTest) {
-            likesComponent.attrs.onclick = makeUnlikeAlert(likesComponent.attrs.onclick);
-        } else {
-            likesComponent.attrs.onclick = makeLikeAlert(likesComponent.attrs.onclick);
-        }
+        // if (text === unlikeTest) {
+        //     likesComponent.attrs.onclick = makeUnlikeAlert(likesComponent.attrs.onclick);
+        // } else {
+        //     likesComponent.attrs.onclick = makeLikeAlert(likesComponent.attrs.onclick);
+        // }
 
         items.add('like', likesComponent, 100);
 
