@@ -50,9 +50,9 @@ class SaveLikesToDatabase
             $currentlyLiked = $post->likes()->where('user_id', $actor->id)->exists();
 
             if ($liked && !$currentlyLiked) {
-                if ($actor->money < 1) {
-                    throw new ValidationException(['message' => $this->translator->trans("nodeloc-nl-patchs.api.no_enough_money")]);
-                }
+                // if ($actor->money < 1) {
+                //     throw new ValidationException(['message' => $this->translator->trans("nodeloc-nl-patchs.api.no_enough_money")]);
+                // }
                 $post->likes()->attach($actor->id);
 
                 $post->raise(new PostWasLiked($post, $actor));
