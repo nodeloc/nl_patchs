@@ -21,7 +21,7 @@ class TagSerializerAttributes
     {
         $actor = $forumSerializer->getActor();
         if ($actor->can("ignoreLoungeLimit")) {
-            return;
+            return $attributes;
         }
         if ($model->id == $this->settings->get('nodeloc-nl-patchs.lounge_id')) {
             if (

@@ -15,9 +15,10 @@ use Flarum\Api\Serializer\ForumSerializer;
 use Flarum\Discussion\DiscussionValidator;
 use Flarum\Discussion\Event\Saving;
 use Flarum\Extend;
+use Flarum\Tags\Api\Serializer\TagSerializer;
 use Flarum\Tags\Tag;
 use Nodeloc\NlPatchs\Api\Controller\GetLoungeData;
-use Nodeloc\NlPatchs\Content\LoungeCounter;
+use Nodeloc\NlPatchs\Content\TagSerializerAttributes;
 use Nodeloc\NlPatchs\Listener\CreatingDiscussion;
 
 return [
@@ -28,8 +29,8 @@ return [
         ->js(__DIR__ . '/js/dist/admin.js')
         ->css(__DIR__ . '/less/admin.less'),
     new Extend\Locales(__DIR__ . '/locale'),
-    (new Extend\ApiSerializer(ForumSerializer::class))
-        ->attributes(LoungeCounter::class),
+    (new Extend\ApiSerializer(TagSerializer::class))
+        ->attributes(TagSerializerAttributes::class),
     (new Extend\Event())
         ->listen(Saving::class, CreatingDiscussion::class),
     (new Extend\Settings())
