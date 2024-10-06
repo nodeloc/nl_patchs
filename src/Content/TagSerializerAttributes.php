@@ -40,7 +40,7 @@ class TagSerializerAttributes
                 $attributes["canStartDiscussion"] = false;
                 $attributes["canAddToDiscussion"] = false;
             }
-            return $attributes;
         }
+        return $attributes;
     }
 }
