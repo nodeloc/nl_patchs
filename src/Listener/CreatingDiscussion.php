@@ -50,7 +50,7 @@ class CreatingDiscussion
         }
 
 
-        $count = Discussion::where("user_id", $event->discussion->user)
+        $count = Discussion::where("user_id", $event->discussion->user_id)
             ->where('created_at', '>=', $this->carbonZoneHelper->now()->setTime(0, 0)->utc())
             ->whereExists(function ($query) {
                 $query->selectRaw("1")
