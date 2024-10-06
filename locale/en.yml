@@ -2,6 +2,9 @@ nodeloc-nl-patchs:
   admin:
     permissions:
       followIgnoreBlocks: "Follow users: Ignore block status"
+    settings:
+      lounge_id: Lounge ID
+      lounge_allow: Lounge Allow Count
   forum:
     modal:
       confirm: "Confirm"
@@ -13,3 +16,4 @@ nodeloc-nl-patchs:
       off_desc: "You are going to unlike this post, the NL will NOT be refunded"
   api:
     no_enough_money: "You have no enough NL"
+    lounge_full: "You have posted too many lounge discussions"

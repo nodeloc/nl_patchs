@@ -9,6 +9,7 @@ A [Flarum](http://flarum.org) extension. Nodeloc Patchs
 
 + 添加了关注用户无视权限
 
++ 添加水区的发言限制
 
 
 ## Links

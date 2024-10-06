@@ -11,14 +11,26 @@
 
 namespace Nodeloc\NlPatchs;
 
+use Flarum\Api\Serializer\ForumSerializer;
+use Flarum\Discussion\DiscussionValidator;
+use Flarum\Discussion\Event\Saving;
 use Flarum\Extend;
+use Nodeloc\NlPatchs\Content\LoungeCounter;
+use Nodeloc\NlPatchs\Listener\CreatingDiscussion;
 
 return [
     (new Extend\Frontend('forum'))
-        ->js(__DIR__.'/js/dist/forum.js')
-        ->css(__DIR__.'/less/forum.less'),
+        ->js(__DIR__ . '/js/dist/forum.js')
+        ->css(__DIR__ . '/less/forum.less'),
     (new Extend\Frontend('admin'))
-        ->js(__DIR__.'/js/dist/admin.js')
-        ->css(__DIR__.'/less/admin.less'),
-    new Extend\Locales(__DIR__.'/locale'),
+        ->js(__DIR__ . '/js/dist/admin.js')
+        ->css(__DIR__ . '/less/admin.less'),
+    new Extend\Locales(__DIR__ . '/locale'),
+    (new Extend\ApiSerializer(ForumSerializer::class))
+        ->attributes(LoungeCounter::class),
+    (new Extend\Event())
+        ->listen(Saving::class, CreatingDiscussion::class),
+    (new Extend\Settings())
+        ->default("nodeloc-nl-patchs.lounge_id", 37)
+        ->default("nodeloc-nl-patchs.lounge_allow", 2),
 ];

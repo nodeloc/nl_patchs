@@ -3,6 +3,17 @@ import app from 'flarum/admin/app';
 app.initializers.add('nodeloc/nl-patchs', () => {
   app.extensionData
     .for('nodeloc-nl-patchs')
+
+    .registerSetting({
+      label: app.translator.trans('nodeloc-nl-patchs.admin.settings.lounge_id'),
+      setting: 'nodeloc-nl-patchs.lounge_id',
+      type: 'number',
+    })
+    .registerSetting({
+      label: app.translator.trans('nodeloc-nl-patchs.admin.settings.lounge_allow'),
+      setting: 'nodeloc-nl-patchs.lounge_allow',
+      type: 'number',
+    })
     .registerPermission(
       {
         icon: 'fas fa-star',

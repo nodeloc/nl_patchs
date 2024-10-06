@@ -9,7 +9,9 @@
     "require": {
         "flarum/core": "^1.2.0",
         "ianm/follow-users": "*",
-        "flarum/likes": "^1.8"
+        "flarum/likes": "^1.8",
+        "flarum/tags": "^1.8",
+        "xypp/flarum-localize-date-lib": "^1.0"
     },
     "authors": [
         {
