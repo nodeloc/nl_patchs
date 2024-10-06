@@ -7,6 +7,7 @@ use Flarum\Settings\SettingsRepositoryInterface;
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Xypp\LocalizeDate\Helper\CarbonZoneHelper;
 
 class GetLoungeData implements RequestHandlerInterface
