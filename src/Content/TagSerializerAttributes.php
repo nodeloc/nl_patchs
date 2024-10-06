@@ -26,7 +26,7 @@ class TagSerializerAttributes
         if ($model->id == $this->settings->get('nodeloc-nl-patchs.lounge_id')) {
             if (
                 intval($this->settings->get('nodeloc-nl-patchs.lounge_allow'))
-                <
+                <=
                 (Discussion::where("user_id", $actor->id)
                     ->where('created_at', '>=', $this->carbonZoneHelper->now()->setTime(0, 0)->utc())
                     ->whereExists(function ($query) {
