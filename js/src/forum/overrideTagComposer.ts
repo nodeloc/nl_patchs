@@ -19,6 +19,7 @@ export function overrideTagComposer() {
 
         app.modal.show(TagDiscussionModal, {
             selectedTags: (this.composer.fields.tags || []).slice(0),
+            selectableTags: () => selectableTags,
             onsubmit: (tags: Tag[]) => {
                 this.composer.fields.tags = tags;
                 this.$('textarea').focus();
