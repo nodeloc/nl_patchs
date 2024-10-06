@@ -1,13 +1,17 @@
 <?php
 
-namespace Nodeloc\NlPatchs\Content;
-use Flarum\Api\Serializer\ForumSerializer;
+namespace Nodeloc\NlPatchs\Api\Controller;
 use Flarum\Discussion\Discussion;
+use Flarum\Http\RequestUtil;
 use Flarum\Settings\SettingsRepositoryInterface;
+use Laminas\Diactoros\Response\JsonResponse;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Xypp\LocalizeDate\Helper\CarbonZoneHelper;
 
-class LoungeCounter
+class GetLoungeData implements RequestHandlerInterface
 {
+
     protected CarbonZoneHelper $carbonZoneHelper;
     protected SettingsRepositoryInterface $settings;
     public function __construct(CarbonZoneHelper $carbonZoneHelper, SettingsRepositoryInterface $settings)
@@ -15,13 +19,14 @@ class LoungeCounter
         $this->settings = $settings;
         $this->carbonZoneHelper = $carbonZoneHelper;
     }
-
-    public function __invoke(ForumSerializer $forumSerializer, $model, $attributes)
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        $actor = RequestUtil::getActor($request);
+        $attributes = [];
         $attributes['loungeCounter'] =
             intval($this->settings->get('nodeloc-nl-patchs.lounge_allow'))
             -
-            (Discussion::where("user_id", $forumSerializer->getActor()->id)
+            (Discussion::where("user_id", $actor->id)
                 ->where('created_at', '>=', $this->carbonZoneHelper->now()->setTime(0, 0)->utc())
                 ->whereExists(function ($query) {
                     $query->selectRaw("1")
@@ -31,6 +36,6 @@ class LoungeCounter
                 })
                 ->count());
         $attributes['loungeId'] = $this->settings->get('nodeloc-nl-patchs.lounge_id');
-        return $attributes;
+        return new JsonResponse($attributes);
     }
 }

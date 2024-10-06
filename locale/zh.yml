@@ -2,6 +2,7 @@ nodeloc-nl-patchs:
   admin:
     permissions:
       followIgnoreBlocks: "关注用户：忽略被屏蔽状态"
+      ignoreLoungeLimit: "忽略水贴数量限制"
     settings:
       lounge_id: 水区ID
       lounge_allow: 水区允许

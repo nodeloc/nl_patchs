@@ -6,11 +6,9 @@ import TagDiscussionModal from 'flarum/tags/forum/components/TagDiscussionModal'
 import Tag from 'flarum/tags/common/models/Tag';
 export function overrideTagComposer() {
     extend(DiscussionComposer.prototype, 'oninit', () => {
-        const user = app.session.user;
-        if (user)
-            app.store.find('users', user.id() as string);
-    }
-    );
+        app.request({ method: 'GET', url: app.forum.attribute('apiUrl') + '/nodeloc-lounge' }).then((result: any) => app.forum.pushAttributes(result));
+    });
+
     DiscussionComposer.prototype.chooseTags = function (this: DiscussionComposer) {
         let selectableTags: Tag[] = getSelectableTags(null);
 

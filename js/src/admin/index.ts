@@ -16,6 +16,14 @@ app.initializers.add('nodeloc/nl-patchs', () => {
     })
     .registerPermission(
       {
+        icon: 'fas fa-faucet',
+        label: app.translator.trans('nodeloc-nl-patchs.admin.permissions.ignoreLoungeLimit'),
+        permission: 'ignoreLoungeLimit',
+      },
+      "moderate"
+    )
+    .registerPermission(
+      {
         icon: 'fas fa-star',
         label: app.translator.trans('nodeloc-nl-patchs.admin.permissions.followIgnoreBlocks'),
         permission: 'followIgnoreBlocks',

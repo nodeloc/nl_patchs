@@ -15,6 +15,7 @@ use Flarum\Api\Serializer\ForumSerializer;
 use Flarum\Discussion\DiscussionValidator;
 use Flarum\Discussion\Event\Saving;
 use Flarum\Extend;
+use Nodeloc\NlPatchs\Api\Controller\GetLoungeData;
 use Nodeloc\NlPatchs\Content\LoungeCounter;
 use Nodeloc\NlPatchs\Listener\CreatingDiscussion;
 
@@ -33,4 +34,6 @@ return [
     (new Extend\Settings())
         ->default("nodeloc-nl-patchs.lounge_id", 37)
         ->default("nodeloc-nl-patchs.lounge_allow", 2),
+    (new Extend\Routes('api'))
+        ->get('/nodeloc-lounge', 'nodeloc-lounge', GetLoungeData::class)
 ];

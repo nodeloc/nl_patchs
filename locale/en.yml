@@ -2,6 +2,7 @@ nodeloc-nl-patchs:
   admin:
     permissions:
       followIgnoreBlocks: "Follow users: Ignore block status"
+      ignoreLoungeLimit: "Ignore Lounge Limit"
     settings:
       lounge_id: Lounge ID
       lounge_allow: Lounge Allow Count
