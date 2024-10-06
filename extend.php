@@ -15,6 +15,7 @@ use Flarum\Api\Serializer\ForumSerializer;
 use Flarum\Discussion\DiscussionValidator;
 use Flarum\Discussion\Event\Saving;
 use Flarum\Extend;
+use Flarum\Tags\Tag;
 use Nodeloc\NlPatchs\Api\Controller\GetLoungeData;
 use Nodeloc\NlPatchs\Content\LoungeCounter;
 use Nodeloc\NlPatchs\Listener\CreatingDiscussion;

@@ -21,9 +21,35 @@ class CreatingDiscussion
     }
     public function __invoke(Saving $event)
     {
-        if($event->actor->can("ignoreLoungeLimit")){
+        if ($event->actor->can("ignoreLoungeLimit")) {
             return;
         }
+
+        $isLounge = false;
+        if (isset($event->data['relationships']['tags']['data'])) {
+            $linkage = (array) $event->data['relationships']['tags']['data'];
+
+            foreach ($linkage as $link) {
+                if ((int) $link['id'] == $this->settings->get('nodeloc-nl-patchs.lounge_id')) {
+                    $isLounge = true;
+                }
+            }
+        }
+        if (!$isLounge) {
+            return;
+        }
+
+        if ($event->discussion->exists) {
+            $tags = $event->discussion->tags;
+            /**
+             * @var \Flarum\Database\Eloquent\Collection $tags
+             */
+            if (!$tags->where("id", $this->settings->get('nodeloc-nl-patchs.lounge_id'))->count() > 0) {
+                return;
+            }
+        }
+
+
         $count = Discussion::where("user_id", $event->discussion->user)
             ->where('created_at', '>=', $this->carbonZoneHelper->now()->setTime(0, 0)->utc())
             ->whereExists(function ($query) {
