@@ -4,7 +4,7 @@ import DiscussionComposer from 'flarum/forum/components/DiscussionComposer';
 import getSelectableTags from 'flarum/tags/forum/utils/getSelectableTags';
 import TagDiscussionModal from 'flarum/tags/forum/components/TagDiscussionModal';
 import Tag from 'flarum/tags/common/models/Tag';
-function overrideTagComposer() {
+export function overrideTagComposer() {
     extend(DiscussionComposer.prototype, 'oninit', () => {
         const user = app.session.user;
         if (user)
