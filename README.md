@@ -11,6 +11,8 @@ A [Flarum](http://flarum.org) extension. Nodeloc Patchs
 
 + 添加水区的发言限制
 
++ 修复了水区限制的时区问题
++ 修复了装饰店的通知bug
 
 ## Links
 
