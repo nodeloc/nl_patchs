@@ -18,3 +18,7 @@ nodeloc-nl-patchs:
   api:
     no_enough_money: "You have no enough NL"
     lounge_full: "You have posted too many lounge discussions"
+  lib:
+    condition:
+      lottery_sent: "Lottery sent"
+      lottery_attend: "Lottery attend"

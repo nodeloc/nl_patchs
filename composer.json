@@ -11,7 +11,9 @@
         "ianm/follow-users": "*",
         "flarum/likes": "^1.8",
         "flarum/tags": "^1.8",
-        "xypp/flarum-localize-date-lib": "^1.0"
+        "xypp/flarum-localize-date-lib": "*",
+        "xypp/forum-quests": "*",
+        "nodeloc/lottery": "*"
     },
     "authors": [
         {
