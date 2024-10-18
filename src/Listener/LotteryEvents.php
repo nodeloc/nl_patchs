@@ -1,6 +1,6 @@
 <?php
 
-namespace Xypp\Collector\Integration\Listener;
+namespace Nodeloc\NlPatchs\Listener;
 
 use Illuminate\Events\Dispatcher;
 use Nodeloc\Lottery\Events\LotteryWasCreated;

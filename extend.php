@@ -22,9 +22,9 @@ use Nodeloc\NlPatchs\Condition\LotteryAttendCondition;
 use Nodeloc\NlPatchs\Condition\LotterySentCondition;
 use Nodeloc\NlPatchs\Content\TagSerializerAttributes;
 use Nodeloc\NlPatchs\Listener\CreatingDiscussion;
+use Nodeloc\NlPatchs\Listener\LotteryEvents;
 use Nodeloc\NlPatchs\Listener\RewardSent;
 use Xypp\Collector\Extend\ConditionProvider;
-use Xypp\Collector\Integration\Listener\LotteryEvents;
 use Xypp\ForumQuests\Event\QuestDone;
 
 return [
