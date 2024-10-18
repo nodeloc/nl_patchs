@@ -3,6 +3,7 @@
 namespace Nodeloc\NlPatchs\Condition;
 use Flarum\User\User;
 use Nodeloc\Lottery\Lottery;
+use Nodeloc\Lottery\LotteryParticipants;
 use Xypp\Collector\ConditionDefinition;
 use Xypp\Collector\Data\ConditionAccumulation;
 
@@ -17,7 +18,7 @@ class LotteryAttendCondition extends ConditionDefinition
     }
     public function getAbsoluteValue(User $user, ConditionAccumulation $accumulation): bool
     {
-        $lotterys = Lottery::where('user_id', $user->id)->get();
+        $lotterys = LotteryParticipants::where('user_id', $user->id)->get();
         foreach ($lotterys as $lottery) {
             $accumulation->updateValue($lottery->created_at, 1);
         }
