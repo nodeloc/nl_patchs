@@ -18,3 +18,4 @@ nodeloc-nl-patchs:
   api:
     no_enough_money: "能量不足"
     lounge_full: "你今天已经灌了足够多的水了"
+    quest_done: "任务奖励"

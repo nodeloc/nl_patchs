@@ -18,6 +18,7 @@ nodeloc-nl-patchs:
   api:
     no_enough_money: "You have no enough NL"
     lounge_full: "You have posted too many lounge discussions"
+    quest_done: "Quest Reward"
   lib:
     condition:
       lottery_sent: "Lottery sent"
