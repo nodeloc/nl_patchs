@@ -3,6 +3,7 @@
 namespace Nodeloc\NlPatchs\Listener;
 
 use Illuminate\Events\Dispatcher;
+use Nodeloc\Lottery\Events\LotteryCancelEnter;
 use Nodeloc\Lottery\Events\LotteryWasCreated;
 use Nodeloc\Lottery\Events\LotteryWasEntered;
 use Xypp\Collector\Data\ConditionData;
@@ -18,6 +19,7 @@ class LotteryEvents
     {
         $events->listen(LotteryWasCreated::class, [$this, 'sent']);
         $events->listen(LotteryWasEntered::class, [$this, 'attend']);
+        $events->listen(LotteryCancelEnter::class, [$this, 'cancel']);
     }
 
     public function sent(LotteryWasCreated $event)
@@ -36,6 +38,25 @@ class LotteryEvents
             new UpdateCondition(
                 $event->actor,
                 [new ConditionData('lottery_attend', 1)]
+            )
+        );
+    }
+
+    public function cancel(LotteryCancelEnter $event)
+    {
+        foreach ($event->lottery->participants as $participant) {
+            $this->events->dispatch(
+                new UpdateCondition(
+                    $participant,
+                    [new ConditionData('lottery_attend', -1)]
+                )
+            );
+        }
+        
+        $this->events->dispatch(
+            new UpdateCondition(
+                $event->lottery->user,
+                [new ConditionData('lottery_sent', -1)]
             )
         );
     }
