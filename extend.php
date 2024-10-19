@@ -70,6 +70,6 @@ return [
 
     (new NodelocEvent)
         ->add("1yr_badge", function (Post $post) {
-            resolve(RewardHelper::class)->reward($post->user, "badge", 1);
+            resolve(RewardHelper::class)->reward($post->user, "badge", 2);
         }),
 ];
