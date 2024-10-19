@@ -15,6 +15,7 @@ use Flarum\Api\Serializer\ForumSerializer;
 use Flarum\Discussion\DiscussionValidator;
 use Flarum\Discussion\Event\Saving;
 use Flarum\Extend;
+use Flarum\Post\Event\Posted;
 use Flarum\Post\Post;
 use Flarum\Tags\Api\Serializer\TagSerializer;
 use Flarum\Tags\Tag;
@@ -25,6 +26,7 @@ use Nodeloc\NlPatchs\Content\TagSerializerAttributes;
 use Nodeloc\NlPatchs\Extend\NodelocEvent;
 use Nodeloc\NlPatchs\Listener\CreatingDiscussion;
 use Nodeloc\NlPatchs\Listener\LotteryEvents;
+use Nodeloc\NlPatchs\Listener\ReplyEvent;
 use Nodeloc\NlPatchs\Listener\RewardSent;
 use Nodeloc\NlPatchs\Service\NodelocServiceProvider;
 use Xypp\Collector\Extend\ConditionProvider;
@@ -44,6 +46,7 @@ return [
     (new Extend\Event())
         ->listen(Saving::class, CreatingDiscussion::class)
         ->listen(QuestDone::class, RewardSent::class)
+        ->listen(Posted::class, ReplyEvent::class)
     // ->subscribe(LotteryEvents::class)
     ,
     (new Extend\Settings())
@@ -56,8 +59,17 @@ return [
     //     ->provide(LotteryAttendCondition::class),
     (new Extend\ServiceProvider)
         ->register(NodelocServiceProvider::class),
+    (new Extend\Formatter)
+        ->configure(function (\s9e\TextFormatter\Configurator $config) {
+            $config->BBCodes->addCustom(
+                '[NodelocEventFlag]{TEXT}[/NodelocEventFlag]',
+                '<div class="NodelocEventFlag"></div>'
+            );
+        }),
+
+
     (new NodelocEvent)
         ->add("1yr_badge", function (Post $post) {
             resolve(RewardHelper::class)->reward($post->user, "badge", 1);
-        })
+        }),
 ];
