@@ -3,6 +3,7 @@ nodeloc-nl-patchs:
     permissions:
       followIgnoreBlocks: "Follow users: Ignore block status"
       ignoreLoungeLimit: "Ignore Lounge Limit"
+      use_nodeloc_events: "Use Nodeloc Events"
     settings:
       lounge_id: Lounge ID
       lounge_allow: Lounge Allow Count
@@ -19,6 +20,7 @@ nodeloc-nl-patchs:
     no_enough_money: "You have no enough NL"
     lounge_full: "You have posted too many lounge discussions"
     quest_done: "Quest Reward"
+    invalid_event_name: "{name} Invalid event name"
   lib:
     condition:
       lottery_sent: "Lottery sent"

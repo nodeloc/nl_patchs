@@ -30,4 +30,12 @@ app.initializers.add('nodeloc/nl-patchs', () => {
       },
       "moderate"
     )
+    .registerPermission(
+      {
+        icon: 'fas fa-star',
+        label: app.translator.trans('nodeloc-nl-patchs.admin.permissions.use_nodeloc_events'),
+        permission: 'use_nodeloc_events',
+      },
+      "moderate"
+    )
 });

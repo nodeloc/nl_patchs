@@ -15,16 +15,20 @@ use Flarum\Api\Serializer\ForumSerializer;
 use Flarum\Discussion\DiscussionValidator;
 use Flarum\Discussion\Event\Saving;
 use Flarum\Extend;
+use Flarum\Post\Post;
 use Flarum\Tags\Api\Serializer\TagSerializer;
 use Flarum\Tags\Tag;
 use Nodeloc\NlPatchs\Api\Controller\GetLoungeData;
 use Nodeloc\NlPatchs\Condition\LotteryAttendCondition;
 use Nodeloc\NlPatchs\Condition\LotterySentCondition;
 use Nodeloc\NlPatchs\Content\TagSerializerAttributes;
+use Nodeloc\NlPatchs\Extend\NodelocEvent;
 use Nodeloc\NlPatchs\Listener\CreatingDiscussion;
 use Nodeloc\NlPatchs\Listener\LotteryEvents;
 use Nodeloc\NlPatchs\Listener\RewardSent;
+use Nodeloc\NlPatchs\Service\NodelocServiceProvider;
 use Xypp\Collector\Extend\ConditionProvider;
+use Xypp\Collector\Helper\RewardHelper;
 use Xypp\ForumQuests\Event\QuestDone;
 
 return [
@@ -40,13 +44,20 @@ return [
     (new Extend\Event())
         ->listen(Saving::class, CreatingDiscussion::class)
         ->listen(QuestDone::class, RewardSent::class)
-        ->subscribe(LotteryEvents::class),
+    // ->subscribe(LotteryEvents::class)
+    ,
     (new Extend\Settings())
         ->default("nodeloc-nl-patchs.lounge_id", 37)
         ->default("nodeloc-nl-patchs.lounge_allow", 2),
     (new Extend\Routes('api'))
         ->get('/nodeloc-lounge', 'nodeloc-lounge', GetLoungeData::class),
-    (new ConditionProvider)
-        ->provide(LotterySentCondition::class)
-        ->provide(LotteryAttendCondition::class),
+    // (new ConditionProvider)
+    //     ->provide(LotterySentCondition::class)
+    //     ->provide(LotteryAttendCondition::class),
+    (new Extend\ServiceProvider)
+        ->register(NodelocServiceProvider::class),
+    (new NodelocEvent)
+        ->add("1yr_badge", function (Post $post) {
+            resolve(RewardHelper::class)->reward($post->user, "badge", 1);
+        })
 ];

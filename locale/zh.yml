@@ -3,6 +3,7 @@ nodeloc-nl-patchs:
     permissions:
       followIgnoreBlocks: "关注用户：忽略被屏蔽状态"
       ignoreLoungeLimit: "忽略水贴数量限制"
+      use_nodeloc_events: "使用Nodeloc事件"
     settings:
       lounge_id: 水区ID
       lounge_allow: 水区允许
@@ -19,3 +20,8 @@ nodeloc-nl-patchs:
     no_enough_money: "能量不足"
     lounge_full: "你今天已经灌了足够多的水了"
     quest_done: "任务奖励"
+    invalid_event_name: "{name} 无效的事件名"
+  lib:
+    condition:
+      lottery_sent: "发送抽奖"
+      lottery_attend: "参加抽奖"

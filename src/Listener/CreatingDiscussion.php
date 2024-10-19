@@ -6,6 +6,7 @@ use Flarum\Discussion\Event\Saving;
 use Flarum\Foundation\ValidationException;
 use Flarum\Locale\Translator;
 use Flarum\Settings\SettingsRepositoryInterface;
+use Nodeloc\NlPatchs\Extend\NodelocEventCollector;
 use Xypp\LocalizeDate\Helper\CarbonZoneHelper;
 
 class CreatingDiscussion
@@ -13,14 +14,28 @@ class CreatingDiscussion
     protected CarbonZoneHelper $carbonZoneHelper;
     protected SettingsRepositoryInterface $settings;
     protected Translator $translator;
-    public function __construct(CarbonZoneHelper $carbonZoneHelper, SettingsRepositoryInterface $settings, Translator $translator)
+    protected NodelocEventCollector $collector;
+    public function __construct(CarbonZoneHelper $carbonZoneHelper, SettingsRepositoryInterface $settings, Translator $translator, NodelocEventCollector $collector)
     {
         $this->carbonZoneHelper = $carbonZoneHelper;
         $this->settings = $settings;
         $this->translator = $translator;
+        $this->collector = $collector;
     }
     public function __invoke(Saving $event)
     {
+        $content = $event->data['attributes']['content'];
+        if (str_contains($content, "[NodelocEventFlag]")) {
+            $event->actor->assertCan('use_nodeloc_events');
+            $pos1 = strpos($content, "[NodelocEventFlag]") + strlen("[NodelocEventFlag]");
+            $pos2 = strpos($content, "[/NodelocEventFlag]");
+            $content = trim(substr($content, $pos1, $pos2 - $pos1));
+
+            if (!$this->collector->has($content)) {
+                throw new ValidationException(['message' => $this->translator->trans("nodeloc-nl-patchs.api.invalid_event_name",['name' => $content])]);
+            }
+        }
+
         if ($event->actor->can("ignoreLoungeLimit")) {
             return;
         }
