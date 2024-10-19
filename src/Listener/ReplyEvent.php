@@ -13,6 +13,8 @@ class ReplyEvent
     public function __invoke(Posted $event)
     {
         if ($event->post->discussion->user->can("use_nodeloc_events")) {
+            if (!$event->post->discussion->firstPost)
+                return;
             $content = strip_tags($event->post->discussion->firstPost->getAttributes()['content']);
             if (str_contains($content, "[NodelocEventFlag]")) {
                 $pos1 = strpos($content, "[NodelocEventFlag]") + strlen("[NodelocEventFlag]");
