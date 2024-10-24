@@ -11,6 +11,7 @@
 
 namespace Nodeloc\NlPatchs;
 
+use ClarkWinkelmann\MoneyRewards\Reward;
 use Flarum\Api\Serializer\ForumSerializer;
 use Flarum\Discussion\DiscussionValidator;
 use Flarum\Discussion\Event\Saving;
@@ -71,5 +72,27 @@ return [
     (new NodelocEvent)
         ->addOnce("1yr_badge", function (Post $post) {
             resolve(RewardHelper::class)->reward($post->user, "badge", 25);
+        })
+        ->add("1024_2024", function (Post $post) {
+            $hasDispatch = $post->discussion->posts()->whereExists(function ($query) {
+                $query->selectRaw("1")
+                    ->from("money_rewards")
+                    ->whereColumn("posts.id", "money_rewards.post_id");
+            })
+                ->where("posts.user_id", $post->user_id)
+                ->exists();
+            if ($hasDispatch)
+                return;
+            $userKey = md5($post->user_id . "1024_2024");
+            if (str_contains($post->content, $userKey)) {
+                $reward = new Reward();
+                $reward->post()->associate($post);
+                $reward->giver()->associate($post->discussion->user);
+                $reward->receiver()->associate($post->user);
+                $reward->amount = 200;
+                $reward->new_money = true;
+                $reward->comment = "1024小礼物";
+                $reward->save();
+            }
         }),
 ];

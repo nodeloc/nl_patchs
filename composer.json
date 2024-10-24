@@ -13,7 +13,8 @@
         "flarum/tags": "^1.8",
         "xypp/flarum-localize-date-lib": "*",
         "xypp/forum-quests": "*",
-        "nodeloc/lottery": "*"
+        "nodeloc/lottery": "*",
+        "clarkwinkelmann/flarum-ext-money-rewards": "^1.0"
     },
     "authors": [
         {
