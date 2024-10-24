@@ -25,6 +25,7 @@ use Flarum\User\User;
 use Nodeloc\NlPatchs\Api\Controller\GetLoungeData;
 use Nodeloc\NlPatchs\Condition\LotteryAttendCondition;
 use Nodeloc\NlPatchs\Condition\LotterySentCondition;
+use Nodeloc\NlPatchs\Console\Update1024Reward;
 use Nodeloc\NlPatchs\Content\TagSerializerAttributes;
 use Nodeloc\NlPatchs\Extend\NodelocEvent;
 use Nodeloc\NlPatchs\Listener\CreatingDiscussion;
@@ -69,7 +70,8 @@ return [
                 '<div class="NodelocEventFlag"></div>'
             );
         }),
-
+    (new Extend\Console)
+        ->command(Update1024Reward::class),
 
     (new NodelocEvent)
         ->addOnce("1yr_badge", function (Post $post) {
