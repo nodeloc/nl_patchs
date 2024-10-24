@@ -35,7 +35,7 @@ class Update1024Reward extends Command
     public function handle()
     {
         $discussion = Discussion::findOrFail($this->argument("id"));
-        $posts = $discussion->posts();
+        $posts = $discussion->posts()->get();
 
         $this->withProgressBar($posts, function (Post $post) {
             $reward = Reward::where("post_id", $post->id)->first();
