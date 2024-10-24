@@ -41,7 +41,7 @@ class Update1024Reward extends Command
             $reward = Reward::where("post_id", $post->id)->first();
             if ($reward) {
                 if ($reward->comment == "1024小礼物") {
-                    $reward->comment == "1024 小礼物";
+                    $reward->comment = "1024 小礼物";
                     $reward->save();
                     User::lockForUpdate()->where('id', $post->user_id)->increment('money', 200);
 
