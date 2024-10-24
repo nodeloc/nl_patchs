@@ -21,6 +21,7 @@ nodeloc-nl-patchs:
     lounge_full: "You have posted too many lounge discussions"
     quest_done: "Quest Reward"
     invalid_event_name: "{name} Invalid event name"
+    1024_2024_gift: "1024-2024 Gift"
   lib:
     condition:
       lottery_sent: "Lottery sent"

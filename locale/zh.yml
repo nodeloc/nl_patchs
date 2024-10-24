@@ -21,6 +21,7 @@ nodeloc-nl-patchs:
     lounge_full: "你今天已经灌了足够多的水了"
     quest_done: "任务奖励"
     invalid_event_name: "{name} 无效的事件名"
+    1024_2024_gift: "1024-2024 礼物"
   lib:
     condition:
       lottery_sent: "发送抽奖"
