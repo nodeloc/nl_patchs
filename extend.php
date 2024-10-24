@@ -104,7 +104,7 @@ return [
                     $post->user,
                     200,
                     '1024_2024_GIFT',
-                    $this->translator->trans('nodeloc-nl-patchs.api.1024_2024_gift')
+                    resolve(\Flarum\Locale\Translator::class)->trans('nodeloc-nl-patchs.api.1024_2024_gift')
                 ));
             }
         }),
