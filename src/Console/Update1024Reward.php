@@ -41,10 +41,20 @@ class Update1024Reward extends Command
             $reward = Reward::where("post_id", $post->id)->first();
             if ($reward) {
                 if ($reward->comment == "1024小礼物") {
-                    $reward->comment = "1024 小礼物";
+                    $reward->comment = "1024的小礼物";
                     $reward->save();
                     User::lockForUpdate()->where('id', $post->user_id)->increment('money', 200);
 
+                    $this->events->dispatch(new \Mattoid\MoneyHistory\Event\MoneyHistoryEvent(
+                        $post->user,
+                        200,
+                        '1024_2024_GIFT',
+                        $this->translator->trans('nodeloc-nl-patchs.api.1024_2024_gift')
+                    ));
+                }else if($reward->comment == "1024 小礼物"){
+                    $reward->comment = "1024的小礼物";
+                    $reward->save();
+                    
                     $this->events->dispatch(new \Mattoid\MoneyHistory\Event\MoneyHistoryEvent(
                         $post->user,
                         200,

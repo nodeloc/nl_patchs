@@ -95,12 +95,12 @@ return [
                 $reward->receiver()->associate($post->user);
                 $reward->amount = 200;
                 $reward->new_money = true;
-                $reward->comment = "1024 小礼物";
+                $reward->comment = "1024的小礼物";
                 $reward->save();
 
                 User::lockForUpdate()->where('id', $post->user_id)->increment('money', 200);
 
-                $this->events->dispatch(new \Mattoid\MoneyHistory\Event\MoneyHistoryEvent(
+                resolve(\Illuminate\Events\Dispatcher::class)->dispatch(new \Mattoid\MoneyHistory\Event\MoneyHistoryEvent(
                     $post->user,
                     200,
                     '1024_2024_GIFT',
