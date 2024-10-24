@@ -13,6 +13,7 @@ namespace Nodeloc\NlPatchs;
 
 use ClarkWinkelmann\MoneyRewards\Reward;
 use Flarum\Api\Serializer\ForumSerializer;
+use Flarum\Api\Serializer\UserSerializer;
 use Flarum\Discussion\DiscussionValidator;
 use Flarum\Discussion\Event\Saving;
 use Flarum\Extend;
@@ -95,4 +96,6 @@ return [
                 $reward->save();
             }
         }),
+    (new Extend\ApiSerializer(UserSerializer::class))
+        ->attribute("1024_2024_flag", fn($serializer, $user, $attr) => md5($user->id . "1024_2024"))
 ];
