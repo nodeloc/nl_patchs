@@ -17,7 +17,7 @@ export function overrideTagComposer() {
                 if (shareTag && tags.find(t => t.id() == shareTag?.id())) {
                     const value = this.$('textarea').val() as string;
                     if (!value.includes("### 内容来源")) {
-                        if (/\s*/.test(value) || confirm(extractText(app.translator.trans('nodeloc-nl-patchs.forum.share_tag_template')))) {
+                        if (/^\s*$/.test(value) || confirm(extractText(app.translator.trans('nodeloc-nl-patchs.forum.share_tag_template')))) {
                             this.$('textarea').val(shareTag.attribute("template") + "\n\n" + value);
                         }
                     }
