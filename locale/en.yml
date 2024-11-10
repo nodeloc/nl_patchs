@@ -16,6 +16,7 @@ nodeloc-nl-patchs:
       on_desc: "You will cost 1 NL to like this post, continue?"
       off_title: "Unlike"
       off_desc: "You are going to unlike this post, the NL will NOT be refunded"
+    share_tag_template: "We are requiring all posts under the share tag to use the template. Confirm to insert the template to your editor?"
   api:
     no_enough_money: "You have no enough NL"
     lounge_full: "You have posted too many lounge discussions"

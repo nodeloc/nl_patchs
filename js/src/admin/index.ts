@@ -38,4 +38,9 @@ app.initializers.add('nodeloc/nl-patchs', () => {
       },
       "moderate"
     )
+    .registerSetting({
+      label: app.translator.trans('nodeloc-nl-patchs.admin.settings.share_id'),
+      setting: 'nodeloc-nl-patchs.share_id',
+      type: 'number',
+    })
 });

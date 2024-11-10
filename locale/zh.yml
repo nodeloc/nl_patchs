@@ -16,6 +16,7 @@ nodeloc-nl-patchs:
       on_desc: "你将消耗 1能量 来点赞，确定吗？"
       off_title: "取消点赞"
       off_desc: "你将取消点赞，消耗的能量【不会】退还，确定吗？"
+    share_tag_template: "我们要求所有的分享标签下的帖子使用模板。确定要插入模板到你的编辑器？"
   api:
     no_enough_money: "能量不足"
     lounge_full: "你今天已经灌了足够多的水了"

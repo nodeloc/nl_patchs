@@ -14,7 +14,7 @@
         "xypp/flarum-localize-date-lib": "*",
         "xypp/forum-quests": "*",
         "nodeloc/lottery": "*",
-        "clarkwinkelmann/flarum-ext-money-rewards": "^1.0"
+        "clarkwinkelmann/flarum-ext-money-rewards": "*"
     },
     "authors": [
         {

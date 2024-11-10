@@ -55,6 +55,8 @@ return [
     ,
     (new Extend\Settings())
         ->default("nodeloc-nl-patchs.lounge_id", 37)
+        ->default("nodeloc-nl-patchs.share_id", 21)
+        ->serializeToForum('nodeloc-nl-patchs.share_id', "nodeloc-nl-patchs.share_id")
         ->default("nodeloc-nl-patchs.lounge_allow", 2),
     (new Extend\Routes('api'))
         ->get('/nodeloc-lounge', 'nodeloc-lounge', GetLoungeData::class),
