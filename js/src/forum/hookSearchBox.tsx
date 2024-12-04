@@ -12,8 +12,9 @@ export function hookSearchBox() {
                 aria-label={app.translator.trans('core.forum.header.search_role_label')}
                 className='Search'
             >
-                <form action="https://www.google.com/search" method="get">
+                <form action="https://www.google.com/search" method="get" target="_blank">
                     <div className="Search-input">
+                        <input name="sitesearch" type="hidden" value="nodeloc.com" />
                         <input
                             aria-label={searchLabel}
                             className="FormControl"
@@ -26,7 +27,7 @@ export function hookSearchBox() {
                             aria-label={app.translator.trans('core.forum.header.search_clear_button_accessible_label')}
                             type="submit"
                         >
-                            <i class="fas fa-search"></i>
+                            <i class="fas fa-arrow-right"></i>
                         </button>
                     </div>
                 </form>
