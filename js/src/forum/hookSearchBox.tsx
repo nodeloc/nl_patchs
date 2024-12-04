@@ -4,7 +4,7 @@ import HeaderSecondary from 'flarum/forum/components/HeaderSecondary';
 import extractText from 'flarum/common/utils/extractText';
 
 export function hookSearchBox() {
-    if (!(app.session.user)) {
+    if (!(app.session?.user)) {
 
         const searchLabel = extractText(app.translator.trans('core.forum.header.search_placeholder'));
         extend(HeaderSecondary.prototype, 'items', function (items) {
