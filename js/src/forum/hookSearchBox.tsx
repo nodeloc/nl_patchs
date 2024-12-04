@@ -27,7 +27,7 @@ export function hookSearchBox() {
                             aria-label={app.translator.trans('core.forum.header.search_clear_button_accessible_label')}
                             type="submit"
                         >
-                            <i className='fas fa-times-circle'></i>
+                            <i class="fas fa-search"></i>
                         </button>
                     </div>
                 </form>
