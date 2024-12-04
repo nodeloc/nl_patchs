@@ -4,10 +4,9 @@ import HeaderSecondary from 'flarum/forum/components/HeaderSecondary';
 import extractText from 'flarum/common/utils/extractText';
 
 export function hookSearchBox() {
-    if (!(app.session?.user)) {
-
-        const searchLabel = extractText(app.translator.trans('core.forum.header.search_placeholder'));
-        extend(HeaderSecondary.prototype, 'items', function (items) {
+    const searchLabel = extractText(app.translator.trans('core.forum.header.search_placeholder'));
+    extend(HeaderSecondary.prototype, 'items', function (items) {
+        if (!(app.session?.user)) {
             items.add('search', <div
                 role="search"
                 aria-label={app.translator.trans('core.forum.header.search_role_label')}
@@ -31,7 +30,7 @@ export function hookSearchBox() {
                         </button>
                     </div>
                 </form>
-            </div>)
-        })
-    }
+            </div>, 1000);
+        }
+    })
 }
