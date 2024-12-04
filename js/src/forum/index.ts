@@ -2,6 +2,7 @@ import app from 'flarum/forum/app';
 import { hookLikeButton } from './hookLikeButton';
 import { overrideTagComposer } from './overrideTagComposer';
 import { override } from 'flarum/common/extend';
+import { hookSearchBox } from './hookSearchBox';
 app.initializers.add('nodeloc/nl-patchs', () => {
   hookLikeButton();
   overrideTagComposer();
@@ -18,4 +19,5 @@ app.initializers.add('nodeloc/nl-patchs', () => {
     }
     return '';
   });
+  hookSearchBox();
 });
