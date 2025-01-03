@@ -2,13 +2,11 @@
 
 namespace Nodeloc\NlPatchs\Content;
 
-use Flarum\Settings\SettingsRepositoryInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
-
 class FormatContent
 {
     public function __invoke($serializer, $model, $attributes)
     {
+
         if (isset($attributes["contentHtml"])) {
             $newHTML = $attributes["contentHtml"];
 

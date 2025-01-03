@@ -37,6 +37,9 @@ use Nodeloc\NlPatchs\Service\NodelocServiceProvider;
 use Xypp\Collector\Extend\ConditionProvider;
 use Xypp\Collector\Helper\RewardHelper;
 use Xypp\ForumQuests\Event\QuestDone;
+use Flarum\Api\Serializer\BasicPostSerializer;
+use Flarum\Api\Serializer\PostSerializer;
+
 
 return [
     (new Extend\Frontend('forum'))
@@ -73,7 +76,6 @@ return [
                 '<div class="NodelocEventFlag"></div>'
             );
         }),
-    //处理外链
     (new Extend\ApiSerializer(PostSerializer::class))
         ->attributes(FormatContent::class),
     (new Extend\ApiSerializer(BasicPostSerializer::class))
