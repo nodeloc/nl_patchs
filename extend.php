@@ -26,6 +26,7 @@ use Nodeloc\NlPatchs\Api\Controller\GetLoungeData;
 use Nodeloc\NlPatchs\Condition\LotteryAttendCondition;
 use Nodeloc\NlPatchs\Condition\LotterySentCondition;
 use Nodeloc\NlPatchs\Console\Update1024Reward;
+use Nodeloc\NlPatchs\Content\FormatContent;
 use Nodeloc\NlPatchs\Content\TagSerializerAttributes;
 use Nodeloc\NlPatchs\Extend\NodelocEvent;
 use Nodeloc\NlPatchs\Listener\CreatingDiscussion;
@@ -72,44 +73,10 @@ return [
                 '<div class="NodelocEventFlag"></div>'
             );
         }),
-    (new Extend\Console)
-        ->command(Update1024Reward::class),
+    //处理外链
+    (new Extend\ApiSerializer(PostSerializer::class))
+        ->attributes(FormatContent::class),
+    (new Extend\ApiSerializer(BasicPostSerializer::class))
+        ->attributes(FormatContent::class),
 
-    (new NodelocEvent)
-        ->addOnce("1yr_badge", function (Post $post) {
-            resolve(RewardHelper::class)->reward($post->user, "badge", 25);
-        })
-        ->add("1024_2024", function (Post $post) {
-            $hasDispatch = $post->discussion->posts()->whereExists(function ($query) {
-                $query->selectRaw("1")
-                    ->from("money_rewards")
-                    ->whereColumn("posts.id", "money_rewards.post_id");
-            })
-                ->where("posts.user_id", $post->user_id)
-                ->exists();
-            if ($hasDispatch)
-                return;
-            $userKey = md5($post->user_id . "1024_2024");
-            if (str_contains($post->content, $userKey)) {
-                $reward = new Reward();
-                $reward->post()->associate($post);
-                $reward->giver()->associate($post->discussion->user);
-                $reward->receiver()->associate($post->user);
-                $reward->amount = 200;
-                $reward->new_money = true;
-                $reward->comment = "1024的小礼物";
-                $reward->save();
-
-                User::lockForUpdate()->where('id', $post->user_id)->increment('money', 200);
-
-                resolve(\Illuminate\Events\Dispatcher::class)->dispatch(new \Mattoid\MoneyHistory\Event\MoneyHistoryEvent(
-                    $post->user,
-                    200,
-                    '1024_2024_GIFT',
-                    resolve(\Flarum\Locale\Translator::class)->trans('nodeloc-nl-patchs.api.1024_2024_gift')
-                ));
-            }
-        }),
-    (new Extend\ApiSerializer(UserSerializer::class))
-        ->attribute("1024_2024_flag", fn($serializer, $user, $attr) => md5($user->id . "1024_2024"))
 ];
