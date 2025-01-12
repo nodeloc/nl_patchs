@@ -14,6 +14,12 @@ app.initializers.add('nodeloc/nl-patchs', () => {
       setting: 'nodeloc-nl-patchs.lounge_allow',
       type: 'number',
     })
+    .registerSetting({
+      label: app.translator.trans('nodeloc-nl-patchs.admin.settings.white_list'),
+      setting: 'nodeloc-nl-patchs.white_list',
+      type: 'textarea',
+      placeholder: app.translator.trans('nodeloc-nl-patchs.admin.settings.white_list'),
+    })
     .registerPermission(
       {
         icon: 'fas fa-faucet',

@@ -2,33 +2,45 @@
 
 namespace Nodeloc\NlPatchs\Content;
 
+use Flarum\Settings\SettingsRepositoryInterface;
+
 class FormatContent
 {
+    protected $whiteList = [];
+    protected SettingsRepositoryInterface $settings;
+    protected $currentRootDomain;
+
+    public function __construct(SettingsRepositoryInterface $settings)
+    {
+        $this->settings = $settings;
+
+        // 获取白名单并按逗号分隔为数组
+        $this->whiteList = array_map('trim', explode(',', $this->settings->get('nodeloc-nl-patchs.white_list', '')));
+
+        // 获取当前根域名
+        $this->currentRootDomain = $this->getRootDomain(isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '');
+    }
+
     public function __invoke($serializer, $model, $attributes)
     {
-
         if (isset($attributes["contentHtml"])) {
             $newHTML = $attributes["contentHtml"];
 
-            // 检查 HTML 内容是否为空
             if (!is_null($newHTML)) {
-                // 使用正则表达式匹配所有的链接
                 $newHTML = preg_replace_callback(
                     '/<a\s+(?:[^>]*?\s+)?href=["\']([^"\']+)["\']([^>]*)>(.*?)<\/a>/is',
                     function ($matches) {
-                        $url = $matches[1]; // 获取链接的 href 值
-                        $attributes = $matches[2]; // 获取链接的其他属性
-                        $text = $matches[3]; // 获取链接的文本
+                        $url = $matches[1];
+                        $attributes = $matches[2];
+                        $text = $matches[3];
 
-                        // 判断是否为站内链接或内部链接
-                        if ($this->isExternalLink($url)) {
-                            // 对非站内链接添加跳转提示
+                        // 对非白名单且非当前域名及子域名的外部链接添加跳转提示
+                        if ($this->isExternalLink($url) && !$this->isInWhiteList($url)) {
                             $redirectUrl = '/goto/' . urlencode($url);
                             return "<a href=\"{$redirectUrl}\" {$attributes} target=\"_blank\" rel=\"noopener noreferrer\">{$text}</a>";
                         }
 
-                        // 保持原样处理站内链接
-                        return $matches[0];
+                        return $matches[0]; // 保留原样
                     },
                     $newHTML
                 );
@@ -40,24 +52,47 @@ class FormatContent
         return $attributes;
     }
 
-    /**
-     * 检查是否为外部链接
-     *
-     * @param string $url
-     * @return bool
-     */
     private function isExternalLink($url)
     {
-        // 获取当前站点的主机名
-        $host = parse_url(app('flarum.settings')->get('url'), PHP_URL_HOST);
         $urlHost = parse_url($url, PHP_URL_HOST);
 
-        // 如果 URL 没有主机名，认为是内部链接
+        if (!$urlHost) {
+            return false; // 视为站内链接
+        }
+
+        $urlRootDomain = $this->getRootDomain($urlHost);
+
+        // 检查是否为当前域名或其子域名
+        return strtolower($this->currentRootDomain) !== strtolower($urlRootDomain);
+    }
+
+    private function isInWhiteList($url)
+    {
+        $urlHost = parse_url($url, PHP_URL_HOST);
+
         if (!$urlHost) {
             return false;
         }
 
-        // 比较主机名是否不同
-        return $host !== $urlHost;
+        foreach ($this->whiteList as $whiteDomain) {
+            if (stripos($urlHost, $whiteDomain) === 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function getRootDomain($host)
+    {
+        $parts = explode('.', $host);
+        $count = count($parts);
+
+        // 处理标准域名，如 example.com 和子域名
+        if ($count >= 2) {
+            return implode('.', array_slice($parts, -2));
+        }
+
+        return $host;
     }
 }

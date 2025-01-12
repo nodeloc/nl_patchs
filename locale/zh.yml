@@ -7,6 +7,7 @@ nodeloc-nl-patchs:
     settings:
       lounge_id: 水区ID
       lounge_allow: 水区允许
+      white_list: 白名单
   forum:
     modal:
       confirm: "确定"
