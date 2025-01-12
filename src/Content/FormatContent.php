@@ -74,14 +74,20 @@ class FormatContent
             return false;
         }
 
+        // 检查白名单域名及其子域名
         foreach ($this->whiteList as $whiteDomain) {
-            if (stripos($urlHost, $whiteDomain) === 0) {
+            $whiteDomain = trim($whiteDomain);
+
+            // 确保白名单域名为根域名
+            if (stripos($urlHost, $whiteDomain) === (strlen($urlHost) - strlen($whiteDomain))
+                && (strlen($urlHost) == strlen($whiteDomain) || $urlHost[strlen($urlHost) - strlen($whiteDomain) - 1] == '.')) {
                 return true;
             }
         }
 
         return false;
     }
+
 
     private function getRootDomain($host)
     {
