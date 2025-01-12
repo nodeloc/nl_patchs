@@ -6,7 +6,7 @@ import extractText from 'flarum/common/utils/extractText';
 export function hookSearchBox() {
     const searchLabel = extractText(app.translator.trans('core.forum.header.search_placeholder'));
     extend(HeaderSecondary.prototype, 'items', function (items) {
-        //if (!(app.session?.user)) {
+        if (!(app.session?.user)) {
             items.add('search', <div
                 role="search"
                 aria-label={app.translator.trans('core.forum.header.search_role_label')}
@@ -32,6 +32,6 @@ export function hookSearchBox() {
                     </div>
                 </form>
             </div>, 1000);
-        //}
+        }
     })
 }
