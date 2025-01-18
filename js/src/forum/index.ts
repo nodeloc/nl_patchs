@@ -4,8 +4,7 @@ import app from 'flarum/forum/app';
 import { hookLikeButton } from './hookLikeButton';
 import { override } from 'flarum/common/extend';
 import { hookSearchBox } from './hookSearchBox';
-import IndexPage from 'flarum/components/IndexPage';
-import Search from 'flarum/components/Search';
+
 app.initializers.add('nodeloc/nl-patchs', () => {
   hookLikeButton();
 
@@ -21,13 +20,5 @@ app.initializers.add('nodeloc/nl-patchs', () => {
     }
     return '';
   });
-
-  extend(IndexPage.prototype, 'viewItems', function (items) {
-    items.add('search', Search.component({
-      state: app.search,
-    }), -100);
-  });
-
-
   hookSearchBox();
 });
